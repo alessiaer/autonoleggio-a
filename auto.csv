@@ -1,8 +1,9 @@
-Categoria, Marca, Modello, Colore, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica
-utilitaria,FIAT,Panda,rosso
-utilitaria,KIA,Pikanto,bronzo
-lusso,Mercedes,Classe 5,nero
-sportiva,Lamborghini,Huracan,giallo
-furgone,Ford,Transit,bianco
-lusso,BMW,Serie 5,metallizzato
-utilitaria,Peugeot,Peugeot,verde
+
+Categoria, Marca, Modello, Colore, LunedÃ¬, MartedÃ¬, MercoledÃ¬, GiovedÃ¬, Venerdi, Sabato, Domenica
+utilitaria, FIAT, Panda, rosso, L, L, L, A, A, A, A
+utilitaria, KIA, Pikanto, bronzo, A, A, L, L, L, A, A 
+lusso, Mercedes, Classe 5, nero, L, L, L, L, L, A, A 
+sportiva, Lamborghini, Huracan, giallo, L, L, L, L, L, L, L
+furgone, Ford, Transit, bianco, A, A, A, A, A, L, L
+lusso, BMW, Serie 5, grigio metallizzato, L, L, L, L, L, A, A 
+utilitaria, Peugeot, 108, verde, L, A, L, L, L, A, L
