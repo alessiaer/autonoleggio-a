@@ -3,7 +3,9 @@
 #include<ctime>
 
 #define auto_csv "auto.csv"
-#define M 7
+#define M 100
+int grandezza=0;
+int posizione[M];
 using namespace std;
 
 struct s_veicolo
@@ -33,6 +35,10 @@ void vett()
 {
     ifstream fin ("auto.csv");
     int j=0;
+    string a;
+    getline(fin,a);
+    getline(fin,a);
+
     while( !fin.eof())
     {
         getline(fin, veicolo[j].categoria,',');
@@ -43,6 +49,7 @@ void vett()
            getline(fin, veicolo[j].giorni[i],',');
         getline(fin, veicolo[j].giorni[6]);
         j++;
+        grandezza++;
     }
 
      fin.close();
@@ -60,8 +67,19 @@ int conta()
     }
 
     fin.close();
-    return y-1;
+    return y;
 }
+
+void stampa()
+{
+
+    for(int c=0; c<grandezza; c++)
+    {
+        cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].giorni[0]<<','<<veicolo[c].giorni[1]<<','<<veicolo[c].giorni[2]<<','<<veicolo[c].giorni[3]<<','<<veicolo[c].giorni[4]<<','<<veicolo[c].giorni[5]<<','<<veicolo[c].giorni[6]<<';'<<endl;
+    }
+}
+
+
 
 
 void selezione()
@@ -70,6 +88,8 @@ void selezione()
 
     string cat, gio[7], app;
     int  t=0, g,s ;
+    bool no=false;
+
 
     cout<<"scegli la categoria a cui sei interessato: " ;
     cin>>cat;
@@ -77,45 +97,42 @@ void selezione()
     cin>>g;
     int vet[g];
     cout<<"\n 1=Lunedi\n 2=Martedi\n 3=Mercoledi\n 4=Giovedi\n 5=Venerdi\n 6=Sabato\n 7=Domenica\n";
+    cout<<" scegli i giorni a cui sei interessato: ";
     do{
-        cout<<" scegli i giorni a cui sei interessato: ";
-        cin>>s;
-        vet[g]=s;
+        cout>>">>";
+        cin>>vet[g];
         g--;}
+
     while(g!=0);
+
+
     vett();
-
-    while(!fin.eof())
+    stampa();
+    for(int i=0, p=0; i<grandezza; i++)
     {
-        if(cat==veicolo[t].categoria)
+        if(cat==veicolo[i].categoria)
         {
-            cout<<"ale non sei cosi tanto una fallita";
-            for(int h=0; h<7; h++)
+              cout<<"forza \n";
+
+           /* for(int h=0; h<7; h++)
            {
-            if(vet[t]==h) //&& veicolo[t].giorni[h]=="L")
+              if(veicolo[i].giorni[vet[h]]==" L")
             {
-                //stampa la riga
-                cout<<"ale non sei cosi tanto una fallita";
+
+                posizione[p]=i;
+                p++;
             }
+
+           }*/
+
         }
-        }
 
-
-
-
-        t++;
     }
 
 
-
-
-
-
-
-
-
-
   cout<<"le auto disponibili sono: \n";
+  cout<<"non ci sono auto che soddisfano i requisiti scelti  \n";
+
     int p;
     cout<<"Quale vuoi prenotare? ";
     cin>>p;
