@@ -98,7 +98,7 @@ void selezione()
 
     string cat, gio[7], app;
     int  g;
-
+    int f=0, a=0, b=0;
 
 
     cout<<"scegli la categoria a cui sei interessato: " ;
@@ -118,7 +118,7 @@ void selezione()
     vett();
     //stampa();
 
-int f=0;
+
     for(int c=0; c<grandezza; c++)
     {
       if(cat==veicolo[c].categoria)
@@ -126,6 +126,54 @@ int f=0;
         while(f<g)
         {
             switch(vet[f])
+            {
+
+                case 1: if(veicolo[c].lun==" L" )
+                        a++;
+                        break;
+
+                case 2: if(veicolo[c].mar==" L")
+                        a++;
+                        break;
+
+                case 3: if(veicolo[c].mer ==" L")
+                        a++;
+                        break;
+
+                case 4: if(veicolo[c].gio ==" L")
+                        a++;
+                        break;
+
+                 case 5: if(veicolo[c].ven ==" L")
+                         a++;
+                         break;
+
+                 case 6: if(veicolo[c].sab ==" L")
+                         a++;break;
+
+                 case 7: if(veicolo[c].dom ==" L")
+                         a++;break;
+
+
+            }
+
+            f++;
+         cout<<a<<endl;
+
+        }
+
+
+     }
+  }
+
+
+     /*  if(a=g)
+        {
+
+
+         while(b<g)
+        {
+         switch(vet[b])
             {
                 case 1: if(veicolo[c].lun==" L")
                         {
@@ -175,24 +223,10 @@ int f=0;
                             veicolo[c].mar=" A";
                         }
                         break;
-
             }
-
-            f++;
+            b++;
         }
-
-
-
-
-
-
-
-
-
-         }
-
-   }
-
+        }*/
 
 
 
