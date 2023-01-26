@@ -5,7 +5,6 @@
 #define auto_csv "auto.csv"
 #define M 100
 int grandezza=0;
-int posizione[M];
 using namespace std;
 
 struct s_veicolo
@@ -14,13 +13,8 @@ struct s_veicolo
     string marca;
     string modello;
     string colore;
-    string lun;
-    string mar;
-    string mer;
-    string gio;
-    string ven;
-    string sab;
-    string dom;
+    string giorni[7];
+    bool cont=false;
 }veicolo[M];
 
 void visualizzazione()
@@ -39,11 +33,9 @@ void visualizzazione()
 
 void vett()
 {
-    ifstream fin ("auto.csv");
+   ifstream fin ("auto.csv");
     int j=0;
     string a;
-    getline(fin,a);
-    getline(fin,a);
 
     while( !fin.eof())
     {
@@ -51,13 +43,9 @@ void vett()
         getline(fin, veicolo[j].marca,',');
         getline(fin, veicolo[j].modello,',');
         getline(fin, veicolo[j].colore,',');
-        getline(fin, veicolo[j].lun,',');
-        getline(fin, veicolo[j].mar,',');
-        getline(fin, veicolo[j].mer,',');
-        getline(fin, veicolo[j].gio,',');
-        getline(fin, veicolo[j].ven,',');
-        getline(fin, veicolo[j].sab,',');
-        getline(fin, veicolo[j].dom);
+        for(int i=0; i<6; i++)
+           getline(fin, veicolo[j].giorni[i],',');
+        getline(fin, veicolo[j].giorni[6]);
         j++;
         grandezza++;
     }
@@ -65,6 +53,27 @@ void vett()
      fin.close();
 }
 
+void scambia()
+{
+    ofstream fout ("auto.csv");
+    fout<<"";
+
+    for(int k=0;k<grandezza; k++)
+    {
+        fout<<veicolo[k].categoria<<','<<veicolo[k].marca<<','<<veicolo[k].modello<<','<<veicolo[k].colore<<',';
+           for(int i=0; i<6; i++)
+           {
+             fout<<veicolo[k].giorni[i]<<',';
+           }
+
+          if(k!=grandezza-1)
+             fout<<veicolo[k].giorni[6]<<endl;
+          else
+            fout<<veicolo[k].giorni[6];
+    }
+    fout.close();
+}
+/*
 int conta()
 {
     int y=0;
@@ -78,19 +87,7 @@ int conta()
 
     fin.close();
     return y;
-}
-
-void stampa()
-{
-
-    for(int c=0; c<grandezza; c++)
-    {
-        cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-    }
-}
-
-
-
+}*/
 
 void selezione()
 {
@@ -98,163 +95,83 @@ void selezione()
 
     string cat, gio[7], app;
     int  g;
-    int f=0, a=0, b=0;
+    int  vet[20], h=0;
+    grandezza=0;
+    vett();
 
 
     cout<<"scegli la categoria a cui sei interessato: " ;
     cin>>cat;
     cout<<"quanti giorni vorresti affittare l'auto? ";
     cin>>g;
-    int vet[20], h=0;
     cout<<"\n 1=Lunedi\n 2=Martedi\n 3=Mercoledi\n 4=Giovedi\n 5=Venerdi\n 6=Sabato\n 7=Domenica\n";
     cout<<" scegli i giorni a cui sei interessato: \n";
     do{
         cout<<">>";
         cin>>vet[h];
-        h++;}
-    while(h<g);
+        vet[h]=vet[h]-1;
+        h++;
+    }while(h<g);
 
-
-    vett();
-    //stampa();
-
+int a=0;
 
     for(int c=0; c<grandezza; c++)
     {
       if(cat==veicolo[c].categoria)
       {
-        while(f<g)
+          for(int f=0; f<g; f++)
+          {
+              if(veicolo[c].giorni[vet[f]]==" L")
+                a++;
+          }
+
+          if(a==h)
+            veicolo[c].cont=true;
+          else
+            veicolo[c].cont=false;
+      }
+      else
+        veicolo[c].cont=false;
+      a=0;
+    }
+
+    cout<<"\n le auto disponibili sono: \n";
+    for(int c=0; c<grandezza; c++)
+    {
+
+        if(veicolo[c].cont==true)
         {
-            switch(vet[f])
-            {
-
-                case 1: if(veicolo[c].lun==" L" )
-                        a++;
-                        break;
-
-                case 2: if(veicolo[c].mar==" L")
-                        a++;
-                        break;
-
-                case 3: if(veicolo[c].mer ==" L")
-                        a++;
-                        break;
-
-                case 4: if(veicolo[c].gio ==" L")
-                        a++;
-                        break;
-
-                 case 5: if(veicolo[c].ven ==" L")
-                         a++;
-                         break;
-
-                 case 6: if(veicolo[c].sab ==" L")
-                         a++;break;
-
-                 case 7: if(veicolo[c].dom ==" L")
-                         a++;break;
-
-
-            }
-
-            f++;
-         cout<<a<<endl;
-
+          cout<<c<<") "<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<',';
+           for(int i=0; i<6; i++)
+           {
+             cout<<veicolo[c].giorni[i]<<',';
+           }
+          cout<<veicolo[c].giorni[6]<<endl;
         }
+    }
 
-
-     }
-  }
-
-
-     /*  if(a=g)
-        {
-
-
-         while(b<g)
-        {
-         switch(vet[b])
-            {
-                case 1: if(veicolo[c].lun==" L")
-                        {
-                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-                            veicolo[c].lun=" A";
-                        }
-                        break;
-
-                case 2: if(veicolo[c].mar==" L")
-                        {
-                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-                            veicolo[c].mar=" A";
-                        }
-                         break;
-
-                case 3: if(veicolo[c].mer ==" L")
-                        {
-                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-                            veicolo[c].mar=" A";
-                        }
-                        break;
-
-                case 4: if(veicolo[c].gio ==" L")
-                        {
-                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-                            veicolo[c].mar=" A";
-                        }
-                        break;
-
-                 case 5: if(veicolo[c].ven ==" L")
-                        {
-                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-                            veicolo[c].mar=" A";
-                        }
-                        break;
-
-                 case 6: if(veicolo[c].sab ==" L")
-                        {
-                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-                            veicolo[c].mar=" A";
-                        }
-                        break;
-
-                 case 7: if(veicolo[c].dom ==" L")
-                        {
-                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
-                            veicolo[c].mar=" A";
-                        }
-                        break;
-            }
-            b++;
-        }
-        }*/
-
-
-
-  cout<<"le auto disponibili sono: \n";
-  cout<<"non ci sono auto che soddisfano i requisiti scelti  \n";
 
     int p;
     cout<<"Quale vuoi prenotare? ";
     cin>>p;
 
+    for(int f=0; f<g; f++)
+         veicolo[p].giorni[vet[f]]=" A";
+
+   scambia();
+
     fin.close();
 }
 
-
-
-void modifica()
-{
-    int p;
-    cout<<"Quale vuoi prenotare?";
-    cin>>p;
-
-   // getline(cin, veicolo.giorno)
-   // int con=conta();
-    ofstream fout( auto_csv);
-
-    fout.close();
-    visualizzazione();
-}
+/*
+utilitaria, FIAT, Panda, rosso, L, L, L, A, A, A, A
+utilitaria, KIA, Pikanto, bronzo, A, A, L, L, L, A, A
+lusso, Mercedes, Classe 5, nero, L, L, L, L, L, A, A
+sportiva, Lamborghini, Huracan, giallo, L, L, L, L, L, L, L
+furgone, Ford, Transit, bianco, A, A, A, A, A, L, L
+lusso, BMW, Serie 5, grigio metallizzato, L, L, L, L, L, A, A
+utilitaria, Peugeot, 108, verde, L, A, L, L, L, A, L
+*/
 
 
 int main()
@@ -273,6 +190,6 @@ int main()
         case 3: break;
     }
 
-    }while(s!=2);
+    }while(s!=3);
     return 0;
 }
