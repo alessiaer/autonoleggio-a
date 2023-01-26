@@ -14,7 +14,13 @@ struct s_veicolo
     string marca;
     string modello;
     string colore;
-    string giorni[7];
+    string lun;
+    string mar;
+    string mer;
+    string gio;
+    string ven;
+    string sab;
+    string dom;
 }veicolo[M];
 
 void visualizzazione()
@@ -45,9 +51,13 @@ void vett()
         getline(fin, veicolo[j].marca,',');
         getline(fin, veicolo[j].modello,',');
         getline(fin, veicolo[j].colore,',');
-        for(int i=0; i<6; i++)
-           getline(fin, veicolo[j].giorni[i],',');
-        getline(fin, veicolo[j].giorni[6]);
+        getline(fin, veicolo[j].lun,',');
+        getline(fin, veicolo[j].mar,',');
+        getline(fin, veicolo[j].mer,',');
+        getline(fin, veicolo[j].gio,',');
+        getline(fin, veicolo[j].ven,',');
+        getline(fin, veicolo[j].sab,',');
+        getline(fin, veicolo[j].dom);
         j++;
         grandezza++;
     }
@@ -75,7 +85,7 @@ void stampa()
 
     for(int c=0; c<grandezza; c++)
     {
-        cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].giorni[0]<<','<<veicolo[c].giorni[1]<<','<<veicolo[c].giorni[2]<<','<<veicolo[c].giorni[3]<<','<<veicolo[c].giorni[4]<<','<<veicolo[c].giorni[5]<<','<<veicolo[c].giorni[6]<<';'<<endl;
+        cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
     }
 }
 
@@ -87,47 +97,103 @@ void selezione()
     ifstream fin(auto_csv);
 
     string cat, gio[7], app;
-    int  t=0, g,s ;
-    bool no=false;
+    int  g;
+
 
 
     cout<<"scegli la categoria a cui sei interessato: " ;
     cin>>cat;
     cout<<"quanti giorni vorresti affittare l'auto? ";
     cin>>g;
-    int vet[g];
+    int vet[20], h=0;
     cout<<"\n 1=Lunedi\n 2=Martedi\n 3=Mercoledi\n 4=Giovedi\n 5=Venerdi\n 6=Sabato\n 7=Domenica\n";
-    cout<<" scegli i giorni a cui sei interessato: ";
+    cout<<" scegli i giorni a cui sei interessato: \n";
     do{
-        cout>>">>";
-        cin>>vet[g];
-        g--;}
-
-    while(g!=0);
+        cout<<">>";
+        cin>>vet[h];
+        h++;}
+    while(h<g);
 
 
     vett();
-    stampa();
-    for(int i=0, p=0; i<grandezza; i++)
+    //stampa();
+
+int f=0;
+    for(int c=0; c<grandezza; c++)
     {
-        if(cat==veicolo[i].categoria)
+      if(cat==veicolo[c].categoria)
+      {
+        while(f<g)
         {
-              cout<<"forza \n";
-
-           /* for(int h=0; h<7; h++)
-           {
-              if(veicolo[i].giorni[vet[h]]==" L")
+            switch(vet[f])
             {
+                case 1: if(veicolo[c].lun==" L")
+                        {
+                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
+                            veicolo[c].lun=" A";
+                        }
+                        break;
 
-                posizione[p]=i;
-                p++;
+                case 2: if(veicolo[c].mar==" L")
+                        {
+                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
+                            veicolo[c].mar=" A";
+                        }
+                         break;
+
+                case 3: if(veicolo[c].mer ==" L")
+                        {
+                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
+                            veicolo[c].mar=" A";
+                        }
+                        break;
+
+                case 4: if(veicolo[c].gio ==" L")
+                        {
+                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
+                            veicolo[c].mar=" A";
+                        }
+                        break;
+
+                 case 5: if(veicolo[c].ven ==" L")
+                        {
+                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
+                            veicolo[c].mar=" A";
+                        }
+                        break;
+
+                 case 6: if(veicolo[c].sab ==" L")
+                        {
+                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
+                            veicolo[c].mar=" A";
+                        }
+                        break;
+
+                 case 7: if(veicolo[c].dom ==" L")
+                        {
+                            cout<<veicolo[c].categoria<<','<<veicolo[c].marca<<','<<veicolo[c].modello<<','<<veicolo[c].colore<<','<<veicolo[c].lun<<','<<veicolo[c].mar<<','<<veicolo[c].mer<<','<<veicolo[c].gio<<','<<veicolo[c].ven<<','<<veicolo[c].sab<<','<<veicolo[c].dom<<endl;
+                            veicolo[c].mar=" A";
+                        }
+                        break;
+
             }
 
-           }*/
-
+            f++;
         }
 
-    }
+
+
+
+
+
+
+
+
+         }
+
+   }
+
+
 
 
   cout<<"le auto disponibili sono: \n";
